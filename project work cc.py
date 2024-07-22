@@ -1,90 +1,162 @@
-#                                      ''' CURRENCY_CONVERTOR'''
-import tkinter as tk
-from tkinter import Label, Entry, Button, StringVar, OptionMenu, Text
-class currencyconvertor:
-    def __init__(self):
-         root = tk.Tk()
-         root.title("currency convertor")
-         root.resizable(width ='False', height ='False')
-         root.configure(background = 'white')
-         lable_one = Label(root, text ="INDIAN RUPEE",font = "Times 15 bold", fg = 'GREEN',bg = 'WHITE')
-         lable_one.grid(row = 1, column = 1)
-         self.entry = Entry(root,bd = 5, relief = 'groove', width = 35)
-         self.entry.grid(row = 1, column = 2)         
-         label_two = Label(root, text = "Select Country", font = "Times 15 bold", fg = 'RED', bg = 'WHITE')
-         label_two.grid(row = 2,column = 1)
-         btn = Button(root, text = "Convert", fg = "Black", font = "times 15 bold", bg = 'Gray', command = self.currency_convertor)
-         btn.grid(row = 3, column = 1)
-         btn = Button(root, text ="Clear ALL", fg = "black", font = "Times 15 bold", bg = "Gray",command = self.clear)
-         btn.grid(row = 4, column = 1)
-         self.country_name = StringVar(root) 
-         self.country_name.set(None)
-         self.options = {
-             "USD": 0.012,
-             "Australian Dollar": 0.018,
-             "United Arab Emirates Dhiram": 0.044,
-             "Japanese Yen": 1.78,
-             "Russian ruble": 1.06 }
-         self.option_menu = OptionMenu(root, self.country_name,*self.options)
-         self.option_menu.grid(row = 2, column = 2, sticky = 'ew')
-         self.result = Text(root,height = 2, width = 30, font = "Times 15 bold",bd = 5)
-         self.result.grid(row = 3, column = 2) 
-         
-         root.mainloop()
-    def clear(self):
-        self.entry.delete(0, tk.END)
-        self.result.delete('1.0', tk.END)
-        self.country_name.set(None)
-    def currency_convertor(self):
-        try:
-            amount_rs = self.entry.get()
-            selected_country = self.country_name.get()
-            selected_country_currency_value = self.options.get(selected_country,None)
-            
-            try:
-                currency = float(selected_country_currency_value)
-                amount = float(amount_rs)
-                converted_amount = currency*amount
-                self.result.delete('1.0', tk.END)
-                self.result.insert(tk.INSERT,"amount In",tk.INSERT, selected_country,tk.INSERT,"=",tk.INSERT,converted_amount)
-            
-            except TypeError as error:
-                print('Please Select target country or', error)
-        except ValueError as error:
-            print(error)
-currencyconvertor()             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
+# Python program to create a simple GUI
+# calculator using Tkinter
+
+# import everything from tkinter module
+from tkinter import *
+
+# globally declare the expression variable
+expression = ""
+
+
+# Function to update expression
+# in the text entry box
+def press(num):
+	# point out the global expression variable
+	global expression
+
+	# concatenation of string
+	expression = expression + str(num)
+
+	# update the expression by using set method
+	equation.set(expression)
+
+
+# Function to evaluate the final expression
+def equalpress():
+	# Try and except statement is used
+	# for handling the errors like zero
+	# division error etc.
+
+	# Put that code inside the try block
+	# which may generate the error
+	try:
+
+		global expression
+
+		# eval function evaluate the expression
+		# and str function convert the result
+		# into string
+		total = str(eval(expression))
+
+		equation.set(total)
+
+		# initialize the expression variable
+		# by empty string
+		expression = ""
+
+	# if error is generate then handle
+	# by the except block
+	except:
+
+		equation.set(" error ")
+		expression = ""
+
+
+# Function to clear the contents
+# of text entry box
+def clear():
+	global expression
+	expression = ""
+	equation.set("")
+
+
+# Driver code
+if _name_ == "_main_":
+	# create a GUI window
+	gui = Tk()
+
+	# set the background colour of GUI window
+	gui.configure(background="light green")
+
+	# set the title of GUI window
+	gui.title("Simple Calculator")
+
+	# set the configuration of GUI window
+	gui.geometry("270x150")
+
+	# StringVar() is the variable class
+	# we create an instance of this class
+	equation = StringVar()
+
+	# create the text entry box for
+	# showing the expression .
+	expression_field = Entry(gui, textvariable=equation)
+
+	# grid method is used for placing
+	# the widgets at respective positions
+	# in table like structure .
+	expression_field.grid(columnspan=4, ipadx=70)
+
+	# create a Buttons and place at a particular
+	# location inside the root window .
+	# when user press the button, the command or
+	# function affiliated to that button is executed .
+	button1 = Button(gui, text=' 1 ', fg='black', bg='red',
+					command=lambda: press(1), height=1, width=7)
+	button1.grid(row=2, column=0)
+
+	button2 = Button(gui, text=' 2 ', fg='black', bg='red',
+					command=lambda: press(2), height=1, width=7)
+	button2.grid(row=2, column=1)
+
+	button3 = Button(gui, text=' 3 ', fg='black', bg='red',
+					command=lambda: press(3), height=1, width=7)
+	button3.grid(row=2, column=2)
+
+	button4 = Button(gui, text=' 4 ', fg='black', bg='red',
+					command=lambda: press(4), height=1, width=7)
+	button4.grid(row=3, column=0)
+
+	button5 = Button(gui, text=' 5 ', fg='black', bg='red',
+					command=lambda: press(5), height=1, width=7)
+	button5.grid(row=3, column=1)
+
+	button6 = Button(gui, text=' 6 ', fg='black', bg='red',
+					command=lambda: press(6), height=1, width=7)
+	button6.grid(row=3, column=2)
+
+	button7 = Button(gui, text=' 7 ', fg='black', bg='red',
+					command=lambda: press(7), height=1, width=7)
+	button7.grid(row=4, column=0)
+
+	button8 = Button(gui, text=' 8 ', fg='black', bg='red',
+					command=lambda: press(8), height=1, width=7)
+	button8.grid(row=4, column=1)
+
+	button9 = Button(gui, text=' 9 ', fg='black', bg='red',
+					command=lambda: press(9), height=1, width=7)
+	button9.grid(row=4, column=2)
+
+	button0 = Button(gui, text=' 0 ', fg='black', bg='red',
+					command=lambda: press(0), height=1, width=7)
+	button0.grid(row=5, column=0)
+
+	plus = Button(gui, text=' + ', fg='black', bg='red',
+				command=lambda: press("+"), height=1, width=7)
+	plus.grid(row=2, column=3)
+
+	minus = Button(gui, text=' - ', fg='black', bg='red',
+				command=lambda: press("-"), height=1, width=7)
+	minus.grid(row=3, column=3)
+
+	multiply = Button(gui, text=' * ', fg='black', bg='red',
+					command=lambda: press("*"), height=1, width=7)
+	multiply.grid(row=4, column=3)
+
+	divide = Button(gui, text=' / ', fg='black', bg='red',
+					command=lambda: press("/"), height=1, width=7)
+	divide.grid(row=5, column=3)
+
+	equal = Button(gui, text=' = ', fg='black', bg='red',
+				command=equalpress, height=1, width=7)
+	equal.grid(row=5, column=2)
+
+	clear = Button(gui, text='Clear', fg='black', bg='red',
+				command=clear, height=1, width=7)
+	clear.grid(row=5, column='1')
+
+	Decimal= Button(gui, text='.', fg='black', bg='red',
+					command=lambda: press('.'), height=1, width=7)
+	Decimal.grid(row=6, column=0)
+	# start the GUI
+	gui.mainloop()
