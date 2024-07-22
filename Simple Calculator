@@ -1,0 +1,13 @@
+# Simple Calculator
+
+## Description
+This is a basic calculator application built using Python and Tkinter. It supports basic arithmetic operations: addition, subtraction, multiplication, and division.
+
+## Usage
+Run `calculator.py` to launch the calculator interface. Use the buttons to perform calculations.
+
+## Requirements
+- Python 3.x
+- Tkinter library
+
+Enjoy calculating!
